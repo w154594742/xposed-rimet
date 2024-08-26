@@ -73,7 +73,7 @@ public class SettingsPlugin extends BaseDingPlugin {
         SimpleItemView itemView = new SimpleItemView(activity);
         itemView.setMinimumHeight(DisplayUtil.DIP_55);
         itemView.getNameView().setTextSize(16);
-        itemView.setName(activity.getString(R.string.app_name));
+        itemView.setName("Lark Helper");
         itemView.setExtend("v" + BuildConfig.VERSION_NAME);
         itemView.setOnClickListener(v -> {
             // 打开设置

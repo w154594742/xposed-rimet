@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.sky.xposed.common.util.Alog;
 import com.sky.xposed.common.util.PackageUtil;
+
 import tk.anysoft.lark.BuildConfig;
 import tk.anysoft.lark.R;
 import tk.anysoft.lark.ui.dialog.LoveDialog;
@@ -50,12 +51,7 @@ public class MainActivity extends Activity {
 
         //目标应用版本信息
         ItemMenu imDingVersion = findViewById(R.id.im_ding_version);
-        if (getVersionNames(XConstant.apps.PACKAGE_NAME).equals("Unknown")) {
-            imDingVersion.setVisibility(View.GONE);
-
-        } else {
-            imDingVersion.setDesc(getVersionNames(XConstant.apps.PACKAGE_NAME));
-        }
+        imDingVersion.setDesc(getVersionNames(XConstant.apps.PACKAGE_NAME));
 
         TextView tvSupportVersion = findViewById(R.id.tv_support_version);
 
@@ -123,8 +119,7 @@ public class MainActivity extends Activity {
         PackageUtil.SimplePackageInfo info = null;
         // 获取版本名
         try {
-            info = PackageUtil
-                    .getSimplePackageInfo(this, packageName);
+            info = PackageUtil.getSimplePackageInfo(this, packageName);
 
         } catch (Exception e) {
             Alog.d("no package", packageName);
@@ -134,11 +129,14 @@ public class MainActivity extends Activity {
 
     private String getVersionNames(List<String> packageNames) {
         StringBuilder versions = new StringBuilder();
-        for (String packageName:packageNames) {
-            versions.append(getVersionName(packageName));
-            versions.append("\n");
+        for (String packageName : packageNames) {
+            String versionName = getVersionName(packageName);
+            if (!"Unknown".equals(versionName)) {
+                versions.append(versionName);
+                break;
+            }
         }
-
-        return versions.toString();
+        String version = versions.toString();
+        return version.isEmpty() ? "Unknown" : version;
     }
 }
