@@ -60,6 +60,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.sky.xposed.common.util.Alog;
 import com.sky.xposed.common.util.CollectionUtil;
 import com.sky.xposed.common.util.ToastUtil;
+
 import tk.anysoft.lark.R;
 import tk.anysoft.lark.ui.adapter.SearchResultAdapter;
 import tk.anysoft.lark.ui.util.DialogUtil;
@@ -241,7 +242,7 @@ public class MapActivity extends Activity implements LocationSource, AdapterView
             mAMapLocationClient.setLocationOption(mAMapLocationClientOption);
             mAMapLocationClient.startLocation();
         } catch (Throwable throwable) {
-            Alog.e(this.getClass().getName(),throwable.getMessage());
+            Alog.e(this.getClass().getName(), throwable.getMessage());
         }
     }
 
@@ -371,7 +372,11 @@ public class MapActivity extends Activity implements LocationSource, AdapterView
                     || aMapLocation == null || aMapLocation.getErrorCode() != 0) {
                 // 定位失败了
                 deactivate();
-                ToastUtil.show("定位失败,请开启定位后再重新尝试!");
+                if (aMapLocation != null) {
+                    ToastUtil.show(aMapLocation.getErrorInfo(), 3000);
+                } else {
+                    ToastUtil.show("定位失败,请开启定位后再重新尝试!", 3000);
+                }
                 return;
             }
 

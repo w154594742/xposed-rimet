@@ -32,6 +32,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        encoding "UTF-8"
     }
     signingConfigs {
         release {
@@ -51,7 +52,7 @@ android {
         release {
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "${project.name}_${variant.flavorName}_v${variant.versionName}.apk"
+                    outputFileName = "${project.name}_v${variant.versionName}_${generateTime()}_${buildType.name}.apk"
                 }
             }
             minifyEnabled true // 已开源
@@ -60,7 +61,7 @@ android {
         debug {
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "${project.name}_${variant.flavorName}_v${variant.versionName}.apk"
+                    outputFileName = "${project.name}_v${variant.versionName}_${generateTime()}_${buildType.name}.apk"
                 }
             }
             minifyEnabled false
@@ -111,4 +112,9 @@ dependencies {
     annotationProcessor 'com.github.sky-wei.xposed-frame:compiler:1.1.1'
 //    implementation 'com.google.android.gms:play-services-maps:12.0.1'
 //    implementation 'com.google.maps.android:android-maps-utils:2.2.0'//    地图操作工具类，添加标记等
+}
+
+//构建时间
+def generateTime() {
+    return new Date().format("yyyyMMdd_HHmmss")
 }

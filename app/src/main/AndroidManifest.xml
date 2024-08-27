@@ -46,7 +46,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="62e37119d8fbf135d089ae604209691d"/>
+            android:value="44e5e64ea9c2a0ba1367729106b4c3c9"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
